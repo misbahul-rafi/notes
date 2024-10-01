@@ -14,7 +14,7 @@
 
   <header class="bg-blue-600 p-4 shadow-md">
     <nav class="container mx-auto flex justify-between items-center">
-      <a href="{{ route('notes.index') }}" class="text-white hover:text-gray-300 mr-6 text-lg font-semibold">Home</a>
+      <a href="{{ route('home') }}" class="text-white hover:text-gray-300 mr-6 text-lg font-semibold">Home</a>
       <!-- <a href="{{ route('notes.create') }}" class="text-white hover:text-gray-300 text-lg font-semibold">Buat Notes</a> -->
       <x-bi-plus-circle class="text-white hover:text-gray-300 text-lg font-semibold" onclick="location.href='{{ route('notes.create') }}'" />
 

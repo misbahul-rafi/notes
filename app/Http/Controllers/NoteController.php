@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 use App\Models\Note;
 use Illuminate\Http\Request;
 
+
 class NoteController extends Controller
 {
+  
   // Menampilkan daftar semua note
   public function index()
   {
