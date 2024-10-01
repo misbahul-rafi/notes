@@ -42,7 +42,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy vhost config
-COPY docker/apache/config/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+COPY docker/apache/00-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 # Enable apache module
 RUN a2enmod rewrite
