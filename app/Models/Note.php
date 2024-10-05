@@ -9,7 +9,7 @@ class Note extends Model
 {
     use HasFactory;
     protected $fillable = [
-      'title', // Tambahkan properti 'title' ke array fillable
-      'content',  // Properti lain yang juga dapat di-mass assign
+      'title',
+      'content',
   ];
 }

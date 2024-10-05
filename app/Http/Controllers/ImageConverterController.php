@@ -1,40 +1,48 @@
 <?php
-
 namespace App\Http\Controllers;
-use thiagoalessio\TesseractOCR\TesseractOCR;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
-
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class ImageConverterController extends Controller
 {
-  public function convert(Request $request)
-  {
-    // Validasi input gambar
-    $request->validate([
-      'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
+    public function convert(Request $request)
+    {
+        $request->validate([
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
+        $images = $request->file('images');
 
-    $image = $request->file('image');
+        try {
+            $http = Http::asMultipart();
+            $apiUrl = env('API_IMG2TEXT') . '/img2text';
 
-    // Praproses gambar
-    $img = Image::make($image->getRealPath());
-    $img->resize(1000, null, function ($constraint) {
-      $constraint->aspectRatio();
-  })->greyscale()->contrast(15)->sharpen(10);
+            foreach ($images as $image) {
+                if (!$image->isValid()) {
+                    Log::error('File image tidak valid.', ['file' => $image->getClientOriginalName()]);
+                    return redirect()->route('convert.image')->withErrors(['image' => 'File image tidak valid.']);
+                }
+                $http = $http->attach('images', file_get_contents($image->getRealPath()), $image->getClientOriginalName());
+            }
+            $response = $http->post($apiUrl);
 
-    // Simpan gambar yang sudah diproses sementara
-    $processedImagePath = storage_path('app/public/processed_image.png');
-    $img->save($processedImagePath, 100);
+            if ($response->successful()) {
+                $data = $response->json();
+                Log::info('Data response dari API:', $data);
+                return redirect()->route('convert.image')->with('response', $data);
+            } else {
+                Log::error('Gagal memproses gambar.', ['status' => $response->status(), 'body' => $response->body()]);
+                return redirect()->route('convert.image')->withErrors(['error' => 'Gagal memproses gambar.']);
+            }
 
-    // Jalankan OCR pada gambar yang telah diproses
-    $text = (new TesseractOCR($processedImagePath))
-      ->psm(6) // Atur sesuai kebutuhan, misalnya 1 atau 3
-      ->lang('eng') // Ganti dengan 'eng' jika teks dalam bahasa Inggris
-      ->run();
-    $text = preg_replace('/Containment.*$/s', '', $text);
+        } catch (\Exception $e) {
+            if (strpos($e->getMessage(), 'foreach() argument must be of type array|object, null given') !== false) {
+                return redirect()->route('convert.image')->withErrors(['error' => 'Not File Choice.']);
+            }
+            Log::error('Terjadi kesalahan saat mengirim gambar ke API Flask.', ['error' => $e->getMessage()]);
 
-    return redirect()->route('convert.image')->with('text', trim($text));
-  }
+            return redirect()->route('convert.image')->withErrors(['error' => 'Terjadi kesalahan saat mengirim gambar ke API.']);
+        }
+    }
 }
