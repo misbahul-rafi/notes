@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Log;
 
 class ImageConverterController extends Controller
 {
+    public function index()
+    {
+        return view('image-converter.index');
+    }
     public function convert(Request $request)
     {
         $request->validate([

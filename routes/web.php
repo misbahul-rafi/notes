@@ -14,11 +14,6 @@ Route::resource('notes', NoteController::class);
 Route::get('/formatter', [FormatterController::class, 'index']);
 Route::post('/format', [FormatterController::class, 'format']);
 
-Route::get('/image-converter', function () {
-  return view('image-converter.index');
-});
+Route::get('/image-converter', [ImageConverterController::class, 'index']);
 
 Route::post('/image-converter', [ImageConverterController::class, 'convert'])->name('convert.image');
-// Route::get('/', function () {
-//     return view('home');
-// });

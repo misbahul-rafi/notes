@@ -6,16 +6,14 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ExtractedCard extends Component
+class MoreExtracted extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $data;
-    public function __construct($data)
+    public function __construct()
     {
         //
-        $this->data = $data;
     }
 
     /**
@@ -23,6 +21,6 @@ class ExtractedCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.extracted-card');
+        return view('components.more-extracted');
     }
 }
