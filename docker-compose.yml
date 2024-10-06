@@ -1,19 +1,30 @@
 services:
-    notes-app:
-        image: notes:latest
-        networks:
-            - database_mysql
-        restart: always
-        user: "www-data:www-data"
-        ports:
-          - '8000:80'
-        volumes:
-            - ./storage:/var/www/html/storage
-            - ./.env.prod:/var/www/html/.env
-    ocrservice:
-      image: ocrservice:latest
-      network:
-          
+  notes-app:
+    image: notes:latest
+    networks:
+      - notes_net
+    restart: always
+    user: "www-data:www-data"
+    ports:
+      - '8000:80'
+    volumes:
+      - ./storage:/var/www/html/storage
+      - ./.env.prod:/var/www/html/.env
+  ocrservice:
+    image: ocrservice:latest
+    networks:
+      - notes_net
+    restart: always
+  mysql_database:
+    image: mysql:8.0
+    networks:
+      - notes_net
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+
 networks:
-    database_mysql:
-      external: true
+  notes_net:
