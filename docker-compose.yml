@@ -10,6 +10,10 @@ services:
         volumes:
             - ./storage:/var/www/html/storage
             - ./.env.prod:/var/www/html/.env
+    ocrservice:
+      image: ocrservice:latest
+      network:
+          
 networks:
     database_mysql:
       external: true
