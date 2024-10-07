@@ -7,28 +7,13 @@ WORKDIR /var/www/html
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     libpng-dev \
-    zlib1g-dev \
-    libxml2-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
     libzip-dev \
-    libonig-dev \
-    zip \
-    curl \
     unzip \
-    libpq-dev \
-    libldap2-dev  \
-    libxslt1-dev \
-    && docker-php-ext-configure gd \
-    && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install pdo_mysql \
-    && docker-php-ext-install mysqli \
-    && docker-php-ext-install zip \
-    && docker-php-ext-install ldap \
-    && docker-php-ext-install soap \
-    && docker-php-ext-install bcmath \
-    && docker-php-ext-install intl \
-    && docker-php-ext-install xsl \
-    && docker-php-ext-install xml \
-    && docker-php-source delete
+    git \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd zip pdo pdo_mysql
 
 # Install nodejs v18 LTS
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
@@ -59,8 +44,8 @@ RUN chown -R www-data:www-data /var/www
 RUN chmod -R g+w /var/www
 
 # Update dependency
-RUN composer update
-RUN npm install
+RUN composer update --no-dev
+RUN npm install --production
 
 # Build javascript dependency
 RUN npm run build
