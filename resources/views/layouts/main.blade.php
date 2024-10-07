@@ -8,7 +8,6 @@
     <title>My Notes</title>
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -19,7 +18,7 @@
             <a href="{{ route('home') }}"
                 class="text-textnavbar hover:text-gray-300 mr-6 text-text font-semibold">Personal Apps</a>
             <x-bi-plus-circle class="text-white hover:text-gray-300 text-lg font-semibold"
-                onclick="location.href='{{ route('notes.create') }}'" />
+                onclick="location.href='{{ route('notes.create')}}'" />
         </nav>
     </header>
 

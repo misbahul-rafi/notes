@@ -7,20 +7,13 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USER}
+      MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
   ocrservice:
     image: ocrservice:latest
     restart: always
     networks:
       - notes_net
-    volumes:
-      - ./.env.prod:/var/www/html/.env
-    environment:
-      OCR_HOST: ${OCR_HOST}
-      OCR_PORT: ${OCR_PORT}
-    ports:
-      - "${OCR_PORT}:${OCR_PORT}"
   notes-app:
     image: notes:latest
     networks:
@@ -31,7 +24,7 @@ services:
       - '8000:80'
     volumes:
       - ./storage:/var/www/html/storage
-      - ./.env.example:/var/www/html/.env
+      - ./.env:/var/www/html/.env
 
 networks:
   notes_net:
