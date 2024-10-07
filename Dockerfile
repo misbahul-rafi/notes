@@ -45,7 +45,7 @@ RUN chmod -R g+w /var/www
 
 # Update dependency
 RUN composer update --no-dev
-RUN npm install --production
+RUN npm install
 
 # Build javascript dependency
 RUN npm run build

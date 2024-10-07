@@ -17,8 +17,10 @@ services:
     volumes:
       - ./.env.prod:/var/www/html/.env
     environment:
-      OCR_HOST: "0.0.0.0"
-      OCR_PORT: "8000"
+      OCR_HOST: ${OCR_HOST}
+      OCR_PORT: ${OCR_PORT}
+    ports:
+      - "${OCR_PORT}:${OCR_PORT}"
   notes-app:
     image: notes:latest
     networks:
@@ -29,7 +31,7 @@ services:
       - '8000:80'
     volumes:
       - ./storage:/var/www/html/storage
-      - ./.env.prod:/var/www/html/.env
+      - ./.env.example:/var/www/html/.env
 
 networks:
   notes_net:

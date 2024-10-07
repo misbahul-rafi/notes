@@ -41,7 +41,7 @@ class ImageConverterController extends Controller
 
         try {
             $http = Http::asMultipart();
-            $apiUrl = env('OCR_HOST') . ':' . env('OCR_PORT') . '/img2text';
+            $apiUrl = env('API_IMG2TEXT') . '/img2text';
 
             foreach ($images as $image) {
                 if (!$image->isValid()) {
