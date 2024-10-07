@@ -13,3 +13,7 @@ RUN pip install -r requirements.txt
 COPY . .
 
 CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "run:app"]
+MySQL -u root -p
+create user 'notes_user'@'%' identified by 'myname';
+grant all privileges on notes_db.* to 'notes_user'@'%';
+flush privileges;
