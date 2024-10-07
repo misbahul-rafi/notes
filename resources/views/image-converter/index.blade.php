@@ -1,5 +1,4 @@
 @extends('layouts.main')
-
 @section('content')
 
 <div class="max-full mx-auto rounded-lg flex-col">
@@ -30,6 +29,8 @@
             </form>
         </sidebar>
         <div class="w-full md:w-3/5 flex flex-col">
+            @component('components.extracted-card', ['data' => $data])
+            @endcomponent
             @if (session('response'))
                         @php
                             $response = session('response');

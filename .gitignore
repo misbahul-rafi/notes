@@ -39,6 +39,7 @@ Homestead.yaml
 .DS_Store
 Thumbs.db
 docker-compose.override.yml
+__pycache__
 __pycache__/
 *__pycache__/
 *.py[cod]

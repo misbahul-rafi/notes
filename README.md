@@ -1,66 +1,105 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Personal Tools Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Personal Tools** adalah aplikasi berbasis web yang menyediakan berbagai alat personal seperti catatan, format teks, dan konversi gambar menjadi teks/log. Aplikasi ini dibangun menggunakan Laravel sebagai backend utama dan Flask untuk proses konversi gambar dengan menggunakan mesin Tesseract OCR.
 
-## About Laravel
+## Fitur
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. **Catatan (Note-taking)**: Aplikasi ini menyediakan fitur untuk membuat, mengedit, dan mengelola catatan pribadi.
+2. **Text Formatter**: Fitur ini memungkinkan pengguna untuk memformat teks sesuai kebutuhan, seperti memodifikasi gaya penulisan.
+3. **Konversi Gambar ke Teks (OCR)**: Menggunakan Tesseract OCR, aplikasi ini dapat mengkonversi gambar menjadi teks atau log. Proses konversi dilakukan oleh aplikasi Flask yang berkomunikasi dengan Laravel melalui API.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Teknologi yang Digunakan
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Laravel**: Sebagai program utama dan pengelola fitur-fitur utama aplikasi.
+- **Flask**: Digunakan untuk melakukan konversi gambar menjadi teks dengan menggunakan Tesseract OCR.
+- **Tesseract OCR**: Mesin OCR untuk ekstraksi teks dari gambar.
+- **Docker** (Opsional): Untuk memudahkan setup.
+- **MySQL**: Sebagai database aplikasi yang akan menyimpan catatan
 
-## Learning Laravel
+## Instalasi
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Prasyarat
+Pastikan Anda sudah menginstal:
+- Git
+- Docker
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Langkah-langkah Instalasi
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Clone repository**:
+    ```bash
+    git clone https://github.com/misbahul-rafi/notes.git
+    cd notes
+    ```
 
-## Laravel Sponsors
+2. **Setup environment Laravel**:
+    Sesuaikan variabel environment di file `.env`
+    ```bash
+    DB_CONNECTION=
+    DB_HOST=
+    DB_PORT=
+    DB_DATABASE=
+    DB_USERNAME=
+    DB_PASSWORD=
+    ```
+    Copy file `.env.example` ke `.env`:
+    ```bash
+    cp .env.prod .env
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+4. **Generate key aplikasi Laravel**:
+    ```bash
+    php artisan key:generate
+    ```
 
-### Premium Partners
+5. **Migrate dan Seed database**:
+    ```bash
+    php artisan migrate --seed
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+6. **Install dependencies front-end** (Jika menggunakan Tailwind atau lainnya):
+    ```bash
+    npm install && npm run dev
+    ```
 
-## Contributing
+7. **Install dan jalankan Flask (untuk OCR)**:
+    - Masuk ke folder `flask-app/`:
+      ```bash
+      cd flask-app
+      ```
+    - Buat virtual environment dan aktifkan:
+      ```bash
+      python3 -m venv venv
+      source venv/bin/activate  # Untuk Linux/Mac
+      venv\Scripts\activate     # Untuk Windows
+      ```
+    - Install dependencies Flask:
+      ```bash
+      pip install -r requirements.txt
+      ```
+    - Jalankan Flask:
+      ```bash
+      python run.py
+      ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+8. **Jalankan Laravel**:
+    ```bash
+    php artisan serve
+    ```
 
-## Code of Conduct
+9. **Akses aplikasi**:
+    - Laravel: `http://localhost:8000`
+    - Flask API: `http://localhost:5000`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Struktur Proyek
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+personal-tools/
+├── app/                # Directory utama Laravel
+├── flask-app/          # Directory Flask untuk konversi gambar
+├── public/             # Public folder Laravel
+├── resources/          # Views dan assets Laravel
+├── routes/             # Routing Laravel
+├── .env                # Environment file
+├── composer.json       # Dependencies PHP
+├── package.json        # Dependencies front-end
+└── README.md           # Dokumentasi ini
