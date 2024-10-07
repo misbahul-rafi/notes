@@ -8,26 +8,22 @@ export default {
     theme: {
         extend: {
             colors: {
-                basic: '#B9B4C7',
+                basic: '#413d35',
                 background: '#9fa7af',
-                navbar: '#352F44',
-                card: '#5C5470',
-                title: '#FAF0E6',
-                text: '#757282',
-                button: '#3F2E3E',
-                buttonHover: '#A78295',
-                
-                headercard: '#3F2E3E',
-                titlecard: '#EFE1D1',
-                backgroundcard: '#A78295',
-                
-                hijau: '#004D40',
-                oren: '#352F44',
-                biru: '#1E3E62',
-                dongker: '#0B192C',
-                hitam: '#181C14',
-                grey: '#686D76'
+                navbar: '#aba28d',
+                titlepage: '#E2DCC8',
+                textnavbar: '#ffffff',
+                button: '#aba28d',
+                buttonHover: '#4f5c5c',
 
+                cardheader: '#aba28d',
+                cardbody:'#cacdd3',
+                cardtitle: '#27374D',
+                cardtext: '#757282',
+
+                // button: '#2C3333',
+                // button: '#678983',
+                // buttonHover: '#4f5c5c',
             },
         },
     },
