@@ -1,4 +1,21 @@
 services:
+  mysql_database:
+    image: mysql:8.0
+    networks:
+      - notes_net
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+  ocrservice:
+    image: ocrservice:latest
+    networks:
+      - notes_net
+    restart: always
+    volumes:
+    - ./.env.prod:/var/www/html/.env
   notes-app:
     image: notes:latest
     networks:
@@ -10,21 +27,6 @@ services:
     volumes:
       - ./storage:/var/www/html/storage
       - ./.env.prod:/var/www/html/.env
-  ocrservice:
-    image: ocrservice:latest
-    networks:
-      - notes_net
-    restart: always
-  mysql_database:
-    image: mysql:8.0
-    networks:
-      - notes_net
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
 
 networks:
   notes_net:
