@@ -1,5 +1,5 @@
 services:
-  mysql_database:
+  notes_db:
     image: mysql:8.0
     networks:
       - notes_net
