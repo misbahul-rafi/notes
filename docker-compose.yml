@@ -11,11 +11,14 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
   ocrservice:
     image: ocrservice:latest
+    restart: always
     networks:
       - notes_net
-    restart: always
     volumes:
-    - ./.env.prod:/var/www/html/.env
+      - ./.env.prod:/var/www/html/.env
+    environment:
+      OCR_HOST: "0.0.0.0"
+      OCR_PORT: "8000"
   notes-app:
     image: notes:latest
     networks:

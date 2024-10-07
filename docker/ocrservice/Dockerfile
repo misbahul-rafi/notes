@@ -4,13 +4,15 @@ RUN apt-get update && apt-get install -y \
     libtesseract-dev \
     libleptonica-dev \
     libgl1 \
+    supervisor \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
     
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+EXPOSE ${OCR_PORT}
 
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "run:app"]
-gunicorn -c gunicorn.conf.py app:app
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
