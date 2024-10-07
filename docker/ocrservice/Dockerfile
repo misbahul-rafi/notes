@@ -12,5 +12,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+EXPOSE ${OCR_PORT}
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
