@@ -1,3 +1,5 @@
+.history/
+.env.example/
 .env
 .env.*.php
 .env.php
