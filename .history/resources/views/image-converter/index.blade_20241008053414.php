@@ -63,6 +63,13 @@
                 @else
                     <p class="text-gray-600 mt-4">Tidak ada hasil ditemukan.</p>
                 @endif
+        @else
+            <div class="flex flex-col gap-3 md:flex-row">
+                @component('components.extracted-card', ['data' => $data])
+                @endcomponent
+                <div class="flex items-center justify-center min-h-96">
+                </div>
+            </div>
         @endif
     </section>
 </div>

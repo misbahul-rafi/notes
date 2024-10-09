@@ -8,7 +8,9 @@ class ImageConverterController extends Controller
 {
     public function index()
     {
-        return view('image-converter.index');
+        
+
+        return view('image-converter.index', compact('data'));
     }
     public function convert(Request $request)
     {
