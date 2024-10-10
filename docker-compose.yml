@@ -21,7 +21,7 @@ services:
     restart: always
     user: "www-data:www-data"
     ports:
-      - '8000:80'
+      - '3000:80'
     volumes:
       - ./storage:/var/www/html/storage
       - ./.env:/var/www/html/.env
