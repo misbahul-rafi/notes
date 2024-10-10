@@ -32,6 +32,10 @@ Pastikan Anda sudah menginstal:
     ```
 
 2. **Setup environment Laravel**:
+    Copy file `.env.example` ke `.env`:
+    ```bash
+    cp .env.prod .env
+    ```
     Sesuaikan variabel environment di file `.env`
     ```bash
     DB_CONNECTION=
@@ -41,54 +45,15 @@ Pastikan Anda sudah menginstal:
     DB_USERNAME=
     DB_PASSWORD=
     ```
-    Copy file `.env.example` ke `.env`:
+    ****Harap dipastikan DB_HOST sama dengan nama container untuk database pada docker-compose.yml*** 
+
+3. **Generate key aplikasi Laravel**:
+    Build image untuk ocrservice dan aplikasi notes
     ```bash
-    cp .env.prod .env
+    docker build -t ocrservice:latest ./docker/ocrservice/. --no-cache
+    docker build -t ocrservice:latest . --no-cache
     ```
 
-4. **Generate key aplikasi Laravel**:
-    ```bash
-    php artisan key:generate
-    ```
-
-5. **Migrate dan Seed database**:
-    ```bash
-    php artisan migrate --seed
-    ```
-
-6. **Install dependencies front-end** (Jika menggunakan Tailwind atau lainnya):
-    ```bash
-    npm install && npm run dev
-    ```
-
-7. **Install dan jalankan Flask (untuk OCR)**:
-    - Masuk ke folder `flask-app/`:
-      ```bash
-      cd flask-app
-      ```
-    - Buat virtual environment dan aktifkan:
-      ```bash
-      python3 -m venv venv
-      source venv/bin/activate  # Untuk Linux/Mac
-      venv\Scripts\activate     # Untuk Windows
-      ```
-    - Install dependencies Flask:
-      ```bash
-      pip install -r requirements.txt
-      ```
-    - Jalankan Flask:
-      ```bash
-      python run.py
-      ```
-
-8. **Jalankan Laravel**:
-    ```bash
-    php artisan serve
-    ```
-
-9. **Akses aplikasi**:
-    - Laravel: `http://localhost:8000`
-    - Flask API: `http://localhost:5000`
 
 ## Struktur Proyek
 

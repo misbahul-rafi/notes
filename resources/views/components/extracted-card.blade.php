@@ -6,16 +6,16 @@
     </div>
     @foreach ($data['results'] as $res)
         <div
-            class="mb-4 border border-black rounded-lg hover:shadow-xl transition-shadow duration-300 bg-cardbody h-full flex-1 space-y-2 w-full md:w-1/3">
+            class="mb-4 border border-black rounded-lg hover:shadow-xl transition-shadow duration-300 bg-cardbody h-max space-y-2 w-full md:w-1/3 bg">
             <section class="p-1 rounded-lg bg-cardheader border-b border-gray-300">
                 <span class="flex justify-between items-center">
                     <p
-                        class="titlecard text-l font-semibold text-titlecard w-full hover:text-indigo-700 transition-colors duration-200">
+                        class="titlecard text-l font-semibold text-titlecard w-full hover:text-buttonHover cursor-pointer transition-colors duration-200">
                         {{ $res['title'] }}
                     </p>
                     <x-clipboard-dropdown :res="$res" />
                 </span>
-                <p class="closedcard text-sm text-text pb-2">{{ $res['closed'] }}</p>
+                <p class="closedcard text-sm text-text pb-2 cursor-pointer">{{ $res['closed'] }}</p>
             </section>
             <p class="contentcard text-xs text-gray-700 p-2">{!! nl2br(e($res['content'])) !!}</p>
         </div>
